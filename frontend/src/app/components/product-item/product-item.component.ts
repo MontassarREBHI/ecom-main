@@ -39,10 +39,24 @@ export class ProductItemComponent {
     this.showReviewForm = false;
   }
 
-  addClicked(){
-    this.addButton = true  
+  addClicked() {
+    this.addButton = true;
   }
-  
+
+  getRandomDiscount(): number {
+    return Math.floor(Math.random() * 26) + 5; // Generates random number between 5 and 30
+  }
+
+  calculateDiscountedPrice(): number | null {
+    const discountPercentage = this.getRandomDiscount();
+    const discountAmount =
+      Number(this.product.price) * (discountPercentage / 100);
+    const discountedPrice = Number(this.product.price) - discountAmount;
+
+    // Limit the discounted price to 2 decimal places
+    return parseFloat(discountedPrice.toFixed(2));
+  }
+
   submitReview() {
     const reviewData = {
       title: this.reviewTitle,
